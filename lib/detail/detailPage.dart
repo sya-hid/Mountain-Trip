@@ -8,18 +8,19 @@ import 'package:get/get.dart';
 
 class DetailPage extends StatefulWidget {
   // final Mountain mountain;
-  dynamic argument = Get.arguments;
 
-  // const DetailPage({Key key}) : super(key: key);
+  const DetailPage({Key key}) : super(key: key);
 
   @override
-  _DetailPageState createState() => _DetailPageState(argument);
+  _DetailPageState createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
-  final Mountain mountain;
+  // dynamic argument = Get.arguments;
+  // final Mountain mountain;
 
-  _DetailPageState(this.mountain);
+  // _DetailPageState(this.mountain);
+  // List mountain = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +28,8 @@ class _DetailPageState extends State<DetailPage> {
       appBar: buildAppBar(isTransparent: true),
       // body: Body(),
       body: Body1(
-        mountain: mountain,
-      ),
+          // mountain: argument,
+          ),
     );
   }
 
@@ -68,8 +69,9 @@ class _DetailPageState extends State<DetailPage> {
 }
 
 class Body1 extends StatelessWidget {
-  final Mountain mountain;
-  const Body1({Key key, this.mountain}) : super(key: key);
+  // final Mountain mountain;
+  const Body1({Key key}) : super(key: key);
+  // const Body1({Key key, this.mountain}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +81,7 @@ class Body1 extends StatelessWidget {
           color: Colors.transparent,
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              mountain.image,
-            ),
+            image: AssetImage(Get.arguments['image']),
           ),
         ),
       ),
@@ -139,7 +139,7 @@ class Body1 extends StatelessWidget {
                 ),
                 SizedBox(height: 250),
                 Text(
-                  mountain.name,
+                  Get.arguments['name'],
                   style: GoogleFonts.roboto().copyWith(
                       color: kTextColor,
                       fontSize: 22,
@@ -242,7 +242,7 @@ class Body1 extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  mountain.desc,
+                  Get.arguments['desc'],
                   maxLines: 5,
                   style: GoogleFonts.roboto().copyWith(
                       color: kTextColor,
@@ -253,6 +253,7 @@ class Body1 extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Travelers(
                       users: topTravelers,
@@ -277,13 +278,14 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: 50,
-      width: MediaQuery.of(context).size.width * 0.5,
+      // width: MediaQuery.of(context).size.width * 0.5,
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Color(0xFF28292d),
-        borderRadius: BorderRadius.circular(20),
+        // color: kPrimaryColor.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Material(
-        color: kPrimaryColor.withOpacity(0.5),
+        color: kPrimaryColor.withOpacity(0.8),
         child: InkWell(
           onTap: () {},
           child: Padding(

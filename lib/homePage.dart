@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mountain_trip/app_bar.dart';
 import 'package:mountain_trip/detail/detailPage.dart';
+import 'package:mountain_trip/home/CustomNavBar.dart';
 import 'package:mountain_trip/models/mata_angin.dart';
 import 'package:mountain_trip/models/mountain.dart';
 import 'package:mountain_trip/theme.dart';
@@ -42,45 +44,51 @@ class BOdy1 extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: kIconColor,
-        ),
-        Container(
-          color: kPrimaryColor,
-          height: MediaQuery.of(context).size.height * 0.4,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                MataAngin(),
-                Carousel(imgList: imgList),
-              ],
-            ),
-            MenuHorizontal()
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 20, top: 60),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: buildAppBar(isTransparent: true),
+      bottomNavigationBar: CustomNavBar(),
+      body: Stack(
+        children: [
+          Container(
+            color: kIconColor,
+          ),
+          Container(
+            color: kPrimaryColor,
+            height: MediaQuery.of(context).size.height * 0.4,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('Ring Road Trip',
-                  style: GoogleFonts.roboto(color: kIconColor)
-                      .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
-              Text(
-                'Route 1 Hringvegur',
-                style: GoogleFonts.roboto(color: kIconColor)
-                    .copyWith(fontSize: 16, fontWeight: FontWeight.normal),
-              )
+              SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MataAngin(),
+                  Carousel(imgList: imgList),
+                ],
+              ),
+              MenuHorizontal()
             ],
           ),
-        ),
-      ],
+          Padding(
+            padding: EdgeInsets.only(left: 20, top: 60),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Ring Road Trip',
+                    style: GoogleFonts.roboto(color: kIconColor)
+                        .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
+                Text(
+                  'Route 1 Hringvegur',
+                  style: GoogleFonts.roboto(color: kIconColor)
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.normal),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -250,11 +258,11 @@ class Carousel extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.6,
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed('/detail', arguments: [{
-                          'image':imgUrl.image,
-                          'name':imgUrl.name,
-                          'desc':imgUrl.desc,
-                        }]);
+                        Get.toNamed('/detail', arguments: {
+                          'image': imgUrl.image.toString(),
+                          'name': imgUrl.name.toString(),
+                          'desc': imgUrl.desc.toString(),
+                        });
                         // Get.to(DetailPage(),
                         //     transition: Transition.fadeIn,
                         //     duration: Duration(seconds: 1));
